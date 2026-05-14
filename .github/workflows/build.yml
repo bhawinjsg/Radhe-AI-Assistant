@@ -1,17 +1,21 @@
 name: Build Radhe APK
 on: [push, workflow_dispatch]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4[cite: 1]
+
       - name: Build with Buildozer
-        uses: ArtemShatalov/buildozer-action@v1.6.1
+        uses: ArtemSBulgakov/buildozer-action@v1[cite: 1]
         with:
-          command: buildozer android debug
-          buildozer_version: master
+          command: buildozer android debug[cite: 1]
+          buildozer_version: master[cite: 1]
+
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4[cite: 1]
         with:
-          name: Radhe-Installer
-          path: bin/*.apk
+          name: Radhe-Installer[cite: 1]
+          path: bin/*.apk[cite: 1]
