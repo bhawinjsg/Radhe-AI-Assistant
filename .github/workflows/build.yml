@@ -3,7 +3,7 @@ on: [push, workflow_dispatch]
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
@@ -18,7 +18,8 @@ jobs:
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          buildozer android debug
+          # This command automatically accepts all Android SDK licenses
+          yes | buildozer android debug
         continue-on-error: false
 
       - name: Upload APK
