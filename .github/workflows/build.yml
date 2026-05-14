@@ -6,26 +6,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4[cite: 1]
 
-      - name: Install dependencies
+      - name: Install System Dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-pip build-essential git python3-dev ffmpeg libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev
           sudo apt-get install -y libsqlite3-dev sqlite3 bzip2 libbz2-dev libssl-dev openssl libgdbm-dev libgdbm-compat-dev liblzma-dev libreadline-dev libncursesw5-dev libffi-dev uuid-dev
-          sudo apt-get install -y libtool autoconf automake pkg-config libpython3-dev
-          pip3 install --user --upgrade buildozer cython virtualenv
+          sudo apt-get install -y libtool autoconf automake pkg-config libpython3-dev[cite: 1]
+          pip3 install --user --upgrade buildozer cython virtualenv[cite: 1]
+
+      - name: Install Android SDK and Accept Licenses
+        run: |
+          # This forces the acceptance of licenses and installs build-tools containing aidl
+          mkdir -p ~/.android && touch ~/.android/repositories.cfg[cite: 1]
+          export PATH=$PATH:$HOME/.local/bin[cite: 1]
+          yes | buildozer android debug --only-sdk-check || true[cite: 1]
 
       - name: Build with Buildozer
         run: |
-          export PATH=$PATH:$HOME/.local/bin
-          # Accepting licenses properly without using "yes |"
-          buildozer android debug || buildozer android debug
+          export PATH=$PATH:$HOME/.local/bin[cite: 1]
+          buildozer android debug[cite: 1]
         env:
-          BUILDOZER_ALLOW_ORG_NAME_START: 1
+          BUILDOZER_ALLOW_ORG_NAME_START: 1[cite: 1]
           
       - name: Upload APK
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4[cite: 1]
         with:
-          name: Radhe-Installer
-          path: bin/*.apk
+          name: Radhe-Installer[cite: 1]
+          path: bin/*.apk[cite: 1]
