@@ -16,3 +16,4 @@ android.minapi = 21
 android.sdk = 31
 android.ndk = 25b
 android.private_storage = True
+android.build_tools_version = 33.0.0
