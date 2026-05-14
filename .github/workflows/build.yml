@@ -14,18 +14,12 @@ jobs:
           sudo apt-get install -y python3-pip build-essential git python3-dev ffmpeg libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev libsqlite3-dev sqlite3 bzip2 libbz2-dev libssl-dev openssl libgdbm-dev libgdbm-compat-dev liblzma-dev libreadline-dev libncursesw5-dev libffi-dev uuid-dev libtool autoconf automake pkg-config libpython3-dev libstdc++6 aidl
           pip3 install --user --upgrade buildozer cython virtualenv
 
-      - name: Pre-Accept SDK Licenses
-        run: |
-          export PATH=$PATH:$HOME/.local/bin
-          # This creates the global buildozer directory and forces license acceptance
-          mkdir -p ~/.buildozer
-          yes | buildozer android debug --only-sdk-check || true
-
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          # We use a double-run logic because the first often fails while downloading the SDK
-          buildozer android debug || buildozer android debug
+          # Explicitly adding the path where Ubuntu installs aidl
+          export PATH=$PATH:/usr/bin/aidl
+          yes | buildozer android debug
         env:
           BUILDOZER_ALLOW_ORG_NAME_START: 1
 
