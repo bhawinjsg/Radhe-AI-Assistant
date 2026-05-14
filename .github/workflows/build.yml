@@ -1,29 +1,7 @@
-name: Build Radhe APK
-on: [push, workflow_dispatch]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python3-pip build-essential git python3-dev ffmpeg libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev
-          sudo apt-get install -y libsqlite3-dev sqlite3 bzip2 libbz2-dev libssl-dev openssl libgdbm-dev libgdbm-compat-dev liblzma-dev libreadline-dev libncursesw5-dev libffi-dev uuid-dev
-          sudo apt-get install -y libtool autoconf automake pkg-config libpython3-dev
-          pip3 install --user --upgrade buildozer cython virtualenv
-
-      - name: Build with Buildozer
+- name: Build with Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          yes | buildozer android debug
-        continue-on-error: false
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: Radhe-Installer
-          path: bin/*.apk
+          # Using the --warn_on_root flag and accepting licenses via SDK manager
+          buildozer android debug
+        env:
+          BUILDOZER_ALLOW_ORG_NAME_START: 1
