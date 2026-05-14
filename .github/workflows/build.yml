@@ -28,4 +28,3 @@ jobs:
         with:
           name: Radhe-Installer[cite: 1]
           path: bin/*.apk[cite: 1]
-      
