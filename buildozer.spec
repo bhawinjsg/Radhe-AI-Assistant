@@ -1,0 +1,18 @@
+[app]
+title = Radhe AI Assistant
+package.name = radhe_ai
+package.domain = org.radhe
+source.dir = .
+source.include_exts = py,png,jpg,kv,atlas
+version = 0.1
+requirements = python3,kivy,google-generativeai
+orientation = portrait
+osx.python_version = 3
+osx.kivy_version = 1.9.1
+fullscreen = 0
+android.permissions = INTERNET,READ_EXTERNAL_STORAGE,RECORD_AUDIO
+android.api = 31
+android.minapi = 21
+android.sdk = 31
+android.ndk = 23b
+android.private_storage = True
