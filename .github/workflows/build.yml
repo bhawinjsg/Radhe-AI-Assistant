@@ -3,7 +3,7 @@ on: [push, workflow_dispatch]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -17,11 +17,11 @@ jobs:
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          # Explicitly adding the path where Ubuntu installs aidl
-          export PATH=$PATH:/usr/bin/aidl
-          yes | buildozer android debug
+          # This command accepts licenses and builds in one go without a pipe
+          buildozer android debug
         env:
           BUILDOZER_ALLOW_ORG_NAME_START: 1
+          BUILDOZER_WARN_ON_ROOT: 1
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
